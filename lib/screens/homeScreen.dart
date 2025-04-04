@@ -24,14 +24,14 @@ class HomeScreen extends StatelessWidget {
           SizedBox(height: screenHeight * 0.03),
           Text(
             'Effortlessly',
-            style: GoogleFonts.mulish(
+            style: Theme.of(context).textTheme.displayLarge?.copyWith(
               fontSize: screenHeight * 0.042,
               fontWeight: FontWeight.w700,
             ),
           ),
           Text(
             'Organise Your Day',
-            style: GoogleFonts.mulish(
+            style: Theme.of(context).textTheme.displayLarge?.copyWith(
               fontSize: screenHeight * 0.042,
               fontWeight: FontWeight.w700,
             ),
@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
           SizedBox(height: screenHeight * 0.005),
           Text(
             'Your productivity, simplified.',
-            style: GoogleFonts.firaSans(
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
               color: Colors.grey,
               fontSize: screenHeight * 0.024,
             ),

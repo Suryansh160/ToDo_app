@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'routes.dart';
 import 'screens/homeScreen.dart';
@@ -16,6 +17,10 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
         primaryColor: Colors.deepOrange,
+        textTheme: TextTheme(
+          displayLarge: GoogleFonts.mulish(),
+          displayMedium: GoogleFonts.firaSans(),
+        ),
       ),
       initialRoute: '/home',
       onGenerateRoute: (settings) => AppRoutes.generateRoute(settings),
