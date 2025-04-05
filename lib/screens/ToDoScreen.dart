@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/main.dart';
+import '../widgets/taskPage.dart';
 
 class ToDoScreen extends StatefulWidget {
   const ToDoScreen({super.key});
@@ -18,7 +19,7 @@ class _ToDoScreenState extends State<ToDoScreen> {
     });
   }
 
-  // final List<Widget> _pages = [HomePage(), TaskPage()];
+  final List<Widget> _pages = [Center(), TaskPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,8 @@ class _ToDoScreenState extends State<ToDoScreen> {
         title: Text('Your WorkSpace', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.deepOrange[400],
       ),
-      body: BottomNavigationBar(
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         type: BottomNavigationBarType.shifting,
         selectedLabelStyle: TextStyle(color: Colors.black),
