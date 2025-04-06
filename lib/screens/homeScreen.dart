@@ -10,6 +10,7 @@ class HomeScreen extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Column(
         children: <Widget>[
           SizedBox(height: screenHeight * 0.16),
