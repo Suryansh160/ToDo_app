@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '/main.dart';
+import '../widgets/homePage.dart';
 import '../widgets/taskPage.dart';
 
 class ToDoScreen extends StatefulWidget {
@@ -19,7 +19,7 @@ class _ToDoScreenState extends State<ToDoScreen> {
     });
   }
 
-  final List<Widget> _pages = [Center(), TaskPage()];
+  final List<Widget> _pages = [HomePage(), TaskPage()];
 
   @override
   Widget build(BuildContext context) {
