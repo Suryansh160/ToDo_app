@@ -17,6 +17,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
         primaryColor: Colors.deepOrange,
@@ -25,7 +26,7 @@ class MainApp extends StatelessWidget {
           displayMedium: GoogleFonts.firaSans(),
         ),
       ),
-      initialRoute: '/home',
+      initialRoute: '/',
       onGenerateRoute: (settings) => AppRoutes.generateRoute(settings),
     );
   }

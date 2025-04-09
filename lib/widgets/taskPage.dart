@@ -39,6 +39,7 @@ class _TaskPageState extends State<TaskPage> {
           "title": _titleController.text.trim(),
           "description": _descriptionController.text.trim(),
           "date": Timestamp.fromDate(date),
+          "id": id,
         });
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Task added successfully!')),

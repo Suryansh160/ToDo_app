@@ -36,6 +36,19 @@ class _HomepageState extends State<HomePage> {
     }
   }
 
+  Future<void> _delete(String id) async {
+    try {
+      await FirebaseFirestore.instance.collection('todos').doc(id).delete();
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Task removed')));
+    } on FirebaseException catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -44,36 +57,80 @@ class _HomepageState extends State<HomePage> {
     return Scaffold(
       body: Column(
         children: [
-          Text('your tasks'),
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                final task = _tasks[index];
-                final DateTime realDate = task['date'].toDate();
-
-                return Card(
-                  color: Colors.deepOrange[70],
-                  margin: EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.1,
-                    vertical: screenHeight * 0.01,
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        task['title'].toString(),
-                        style: GoogleFonts.quicksand(
-                          fontSize: screenHeight * 0.023,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Text(task['description'].toString()),
-                      Text(DateFormat('EEE, dd MMM').format(realDate)),
-                    ],
-                  ),
-                );
-              },
-              itemCount: _tasks.length,
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              'Your Tasks',
+              style: GoogleFonts.cabin(
+                fontWeight: FontWeight.w400,
+                fontSize: screenHeight * 0.03,
+              ),
             ),
+          ),
+          Expanded(
+            child:
+                _tasks.isEmpty
+                    ? (Image.asset('assets/image2.png'))
+                    : ListView.builder(
+                      itemBuilder: (context, index) {
+                        final task = _tasks[index];
+                        final DateTime realDate = task['date'].toDate();
+
+                        return Dismissible(
+                          key: Key(index.toString()),
+                          direction: DismissDirection.startToEnd,
+                          onDismissed:
+                              (direction) => {
+                                setState(_delete(task['id']) as VoidCallback),
+                              },
+                          child: Card(
+                            color: Colors.deepOrange[70],
+                            margin: EdgeInsets.symmetric(
+                              horizontal: screenWidth * 0.1,
+                              vertical: screenHeight * 0.01,
+                            ),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        DateFormat(
+                                          'EEE, dd MMM',
+                                        ).format(realDate),
+                                        style: TextStyle(
+                                          fontSize: screenHeight * 0.018,
+                                          color: Colors.deepOrange,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 12,
+                                      ), // Space between texts
+                                      Text(
+                                        task['title'].toString(),
+                                        textAlign: TextAlign.center,
+
+                                        style: GoogleFonts.quicksand(
+                                          fontSize: screenHeight * 0.023,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      SizedBox(width: screenWidth * 0.29),
+                                    ],
+                                  ),
+                                ),
+
+                                Text(task['description'].toString()),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      itemCount: _tasks.length,
+                    ),
           ),
         ],
       ),
